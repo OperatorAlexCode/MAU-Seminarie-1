@@ -17,6 +17,7 @@ namespace Seminarie_1
         // Other
         Texture2D Tex;
         Rectangle DestRec;
+        Color DrawColor = Color.White;
 
         public Ball(Texture2D tex, float radius, Vector2 pos)
         {
@@ -39,8 +40,12 @@ namespace Seminarie_1
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Tex, DestRec, Color.White);
+            spriteBatch.Draw(Tex, DestRec, DrawColor);
         }
 
+        public void SetColor(Color newColor)
+        {
+            DrawColor = newColor;
+        }
     }
 }
