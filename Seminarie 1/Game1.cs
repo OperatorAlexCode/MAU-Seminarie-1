@@ -87,8 +87,7 @@ namespace Seminarie_1
 
             SpriteBatch.Begin();
 
-            BallOne.Draw(SpriteBatch);
-            BallTwo.Draw(SpriteBatch);
+            DrawBalls();
 
             SpriteBatch.End();
 
@@ -97,20 +96,26 @@ namespace Seminarie_1
             base.Draw(gameTime);
         }
 
-        public bool AreBallsColliding(Ball ball1, Ball Ball2)
+        bool AreBallsColliding(Ball ball1, Ball Ball2)
         {
             // Fun stuff is written here ↓
 
             return false;
         }
 
-        public void CalculateCollision()
+        void CalculateCollision()
         {
             // Fun stuff is written here ↓
 
         }
 
-        public void UpdateBalls()
+        void DrawBalls()
+        {
+            BallOne.Draw(SpriteBatch);
+            BallTwo.Draw(SpriteBatch);
+        }
+
+        void UpdateBalls()
         {
             BallOne.Update();
             BallTwo.Update();
