@@ -18,7 +18,7 @@ namespace Seminarie_1
         Texture2D Tex;
         Rectangle DestRec;
 
-        public Ball(Texture2D tex, float radius,Vector2 pos)
+        public Ball(Texture2D tex, float radius, Vector2 pos)
         {
             Tex = tex;
             Pos = pos;
@@ -39,7 +39,7 @@ namespace Seminarie_1
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Tex,DestRec,Color.White);
+            spriteBatch.Draw(Tex, DestRec, Color.White);
         }
 
     }

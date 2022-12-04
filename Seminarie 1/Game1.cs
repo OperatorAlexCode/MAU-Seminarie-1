@@ -13,6 +13,18 @@ namespace Seminarie_1
         int ScreenHeight = 700;
         int ScreenWidth = 700;
 
+        // Vector2 | Ball one
+        Vector2 BallOnePos;
+        Vector2 BallOneVel;
+        // Vector2 | Ball two
+        Vector2 BallTwoPos;
+        Vector2 BallTwoVel;
+
+        // Float 
+        float BallOneRadius;
+        float BallTwoRadius;
+        float ElapsedTime;
+
         // Ball
         Ball BallOne;
         Ball BallTwo;
@@ -21,7 +33,7 @@ namespace Seminarie_1
         private GraphicsDeviceManager Graphics;
         private SpriteBatch SpriteBatch;
         Color BackGroundColor = Color.Green;
-        float ElapsedTime;
+        Texture2D BallTex;
 
         public Game1()
         {
@@ -40,10 +52,14 @@ namespace Seminarie_1
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+            BallTex = Content.Load<Texture2D>("Pool ball");
 
             Graphics.PreferredBackBufferHeight = ScreenHeight;
             Graphics.PreferredBackBufferWidth = ScreenWidth;
             Graphics.ApplyChanges();
+
+            BallOne = new(BallTex, BallOneRadius, BallOnePos, BallOneVel);
+            BallTwo = new(BallTex, BallTwoRadius, BallTwoPos, BallTwoVel);
 
             // TODO: use this.Content to load your game content here
         }
@@ -54,6 +70,8 @@ namespace Seminarie_1
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            UpdateBalls();
 
             // Fun stuff is written here ↓
 
@@ -90,6 +108,12 @@ namespace Seminarie_1
         {
             // Fun stuff is written here ↓
 
+        }
+
+        public void UpdateBalls()
+        {
+            BallOne.Update();
+            BallTwo.Update();
         }
     }
 }
