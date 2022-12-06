@@ -15,36 +15,50 @@ namespace Seminarie_1
         // Int
         int ScreenHeight = 700;
         int ScreenWidth = 700;
+        int TotalCollisionsMax = 1;
+        int TotalCollisions;
 
         // Vector2 | Ball one
-        Vector2 BallOnePos;
+        Vector2 BallOnePos = new(100, 100);
         Vector2 BallOneVel;
         // Vector2 | Ball two
-        Vector2 BallTwoPos;
+        Vector2 BallTwoPos = new(500,100);
         Vector2 BallTwoVel;
+        // Vector2 | Misc
+        Vector2 Temp = Vector2.Zero;
+        List<Vector2> BallOneCollisionPositions;
+        List<Vector2> BallTwoCollisionPositions;
 
-        // Float 
-        float BallOneRadius;
-        float BallTwoRadius;
+        // Float | Ball one
+        float BallOneRadius = 25.0f;
+        float BallOneMass = 1.0f;
+        // Float | Ball Two
+        float BallTwoRadius = 25.0f;
+        float BallTwoMass = 1.0f;
+        // Float | Misc
+        float CollisionVisualzationDuration = 0.5f;
+
+        // String
+        string TimeFormat = "{0:00}:{1:00}.{2:000}";
+        List<string> TimeOfCollisions;
+        string elapsedTime;
+
+        // StopWatch
+        Stopwatch timer;
+        Stopwatch CollisionVisualzationTimer;
 
         // Ball
         Ball BallOne;
         Ball BallTwo;
-
-        List<Vector2> BallOneCollisionPositions;
-        List<Vector2> BallTwoCollisionPositions;
-        List<string> TimeOfCollisions;
 
         // Other
         private GraphicsDeviceManager Graphics;
         private SpriteBatch SpriteBatch;
         Color BackGroundColor = Color.Green;
         Texture2D BallTex;
-        Stopwatch timer;
         SpriteFont font;
-        string elapsedTime;
-
-        Vector2 Temp = Vector2.Zero;
+        bool BreakAfterCollisions = false;
+        Color CollisionColor = Color.Red;
 
         public Game1()
         {
@@ -69,15 +83,15 @@ namespace Seminarie_1
             Graphics.PreferredBackBufferWidth = ScreenWidth;
             Graphics.ApplyChanges();
 
-
-            BallOne = new(BallTex, BallOneRadius, BallOnePos, BallOneVel);
-            BallTwo = new(BallTex, BallTwoRadius, BallTwoPos, BallTwoVel);
+            BallOne = new(BallTex, BallOneRadius, BallOneMass, BallOnePos, BallOneVel);
+            BallTwo = new(BallTex, BallTwoRadius, BallTwoMass, BallTwoPos, BallTwoVel);
 
             font = Content.Load<SpriteFont>("File");
 
             //Timer stuff
             timer = new Stopwatch();
             timer.Start();
+            CollisionVisualzationTimer = new();
 
             BallOneCollisionPositions = new List<Vector2>();
             BallTwoCollisionPositions = new List<Vector2>();
@@ -86,22 +100,34 @@ namespace Seminarie_1
 
         protected override void Update(GameTime gameTime)
         {
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            UpdateBalls();
-
             // Fun stuff is written here ↓
 
-            // Gets the elapsed time and then formats and displays the elapsed time
-            TimeSpan timeSpan = timer.Elapsed;
-            elapsedTime = String.Format("{0:00}:{1:00}.{2:000}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+            if (!BreakAfterCollisions && TotalCollisions < TotalCollisionsMax)
+            {
+                UpdateBalls();
 
-            // TODO: Replace once balls are working
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-                SavePositions();
+                if (AreBallsColliding(BallOne, BallTwo))
+                    CalculateCollision();
 
+                if (CollisionVisualzationTimer.IsRunning && CollisionVisualzationTimer.Elapsed.TotalSeconds >= CollisionVisualzationDuration)
+                {
+                    BallOne.SetColor(Color.White);
+                    BallOne.SetColor(Color.White);
+                    CollisionVisualzationTimer.Stop();
+                    CollisionVisualzationTimer.Reset();
+                }
+
+                // Gets the elapsed time and then formats and displays the elapsed time
+                TimeSpan timeSpan = timer.Elapsed;
+                elapsedTime = String.Format(TimeFormat, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+
+                // TODO: Replace once balls are working
+                if (Keyboard.GetState().IsKeyDown(Keys.S))
+                    SavePositions();
+            }
 
             base.Update(gameTime);
         }
@@ -116,7 +142,7 @@ namespace Seminarie_1
 
             SpriteBatch.DrawString(font, elapsedTime, Vector2.Zero, Color.White);
 
-            for(int i = 0; i < TimeOfCollisions.Count; i++)
+            for (int i = 0; i < TimeOfCollisions.Count; i++)
                 SpriteBatch.DrawString(font, TimeOfCollisions[i], new Vector2(ScreenWidth - font.MeasureString(TimeOfCollisions[i]).X, 20 * i), Color.White);
 
             SpriteBatch.End();
@@ -135,6 +161,12 @@ namespace Seminarie_1
         {
             // Fun stuff is written here ↓
 
+
+            TotalCollisions++;
+
+            BallOne.SetColor(CollisionColor);
+            BallOne.SetColor(CollisionColor);
+            CollisionVisualzationTimer.Start();
         }
 
         private void SavePositions()
@@ -142,7 +174,7 @@ namespace Seminarie_1
             // TODO: Add back once balls are working
             //BallOneCollisionPositions.Add(BallOne.Pos);
             //BallOneCollisionPositions.Add(BallTwo.Pos);
-            
+
             // Temp is for testing purposes
             TimeOfCollisions.Add(elapsedTime + " : BALL ONE" + Temp + " : BALL TWO" + Temp);
         }
