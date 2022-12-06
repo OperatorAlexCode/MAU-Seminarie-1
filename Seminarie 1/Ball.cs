@@ -11,31 +11,37 @@ namespace Seminarie_1
     public class Ball
     {
         // Vector2
-        Vector2 Pos;
-        Vector2 Vel;
+        Vector2 pos;
+        Vector2 vel;
 
         // Other
         Texture2D Tex;
         Rectangle DestRec;
         Color DrawColor = Color.White;
 
+        float Radius;
+
+        public Vector2 Pos { get => Pos; set => Pos = value; }
+
         public Ball(Texture2D tex, float radius, Vector2 pos)
         {
             Tex = tex;
-            Pos = pos;
+            this.pos = pos;
+            Radius = radius;
         }
 
         public Ball(Texture2D tex, float radius, Vector2 pos, Vector2 vel)
         {
             Tex = tex;
-            Pos = pos;
-            Vel = vel;
+            this.pos = pos;
+            this.vel = vel;
+            Radius = radius;
         }
 
         public void Update()
         {
-            DestRec.X = (int)Pos.X;
-            DestRec.Y = (int)Pos.Y;
+            DestRec.X = (int)pos.X;
+            DestRec.Y = (int)pos.Y;
         }
 
         public void Draw(SpriteBatch spriteBatch)

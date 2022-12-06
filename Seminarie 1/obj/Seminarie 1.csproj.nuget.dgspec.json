@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexa\\source\\repos\\Seminarie 1\\Seminarie 1\\Seminarie 1.csproj": {}
+    "C:\\Users\\Waber\\Source\\Repos\\MAU-Seminarie-1\\Seminarie 1\\Seminarie 1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexa\\source\\repos\\Seminarie 1\\Seminarie 1\\Seminarie 1.csproj": {
+    "C:\\Users\\Waber\\Source\\Repos\\MAU-Seminarie-1\\Seminarie 1\\Seminarie 1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexa\\source\\repos\\Seminarie 1\\Seminarie 1\\Seminarie 1.csproj",
+        "projectUniqueName": "C:\\Users\\Waber\\Source\\Repos\\MAU-Seminarie-1\\Seminarie 1\\Seminarie 1.csproj",
         "projectName": "Seminarie 1",
-        "projectPath": "C:\\Users\\alexa\\source\\repos\\Seminarie 1\\Seminarie 1\\Seminarie 1.csproj",
-        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexa\\source\\repos\\Seminarie 1\\Seminarie 1\\obj\\",
+        "projectPath": "C:\\Users\\Waber\\Source\\Repos\\MAU-Seminarie-1\\Seminarie 1\\Seminarie 1.csproj",
+        "packagesPath": "C:\\Users\\Waber\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Waber\\Source\\Repos\\MAU-Seminarie-1\\Seminarie 1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Waber\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
