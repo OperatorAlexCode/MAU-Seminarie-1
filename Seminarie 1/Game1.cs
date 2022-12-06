@@ -12,6 +12,7 @@ namespace Seminarie_1
         // Int
         int ScreenHeight = 700;
         int ScreenWidth = 700;
+        int MaxCollisionsAmount = 1;
 
         // Vector2 | Ball one
         Vector2 BallOnePos;
@@ -34,6 +35,7 @@ namespace Seminarie_1
         private SpriteBatch SpriteBatch;
         Color BackGroundColor = Color.Green;
         Texture2D BallTex;
+        bool BreakAfterCollisions = true;
 
         public Game1()
         {
