@@ -12,8 +12,8 @@ namespace Seminarie_1
     public class Ball
     {
         // Vector2
-        Vector2 pos;
-        Vector2 vel;
+        public Vector2 pos;
+        public Vector2 vel;
 
         // Float
         public float Radius;
@@ -21,10 +21,11 @@ namespace Seminarie_1
 
         // Other
         Texture2D Tex;
-        Rectangle DestRec;
+        public Rectangle DestRec;
         Color DrawColor = Color.White;
 
         public Vector2 Pos { get => Pos; set => Pos = value; }
+        public Vector2 Vel { get => Vel; set => Vel = value; }
 
         public Ball(Texture2D tex, float radius, Vector2 pos)
         {
@@ -66,8 +67,9 @@ namespace Seminarie_1
 
         public void Update()
         {
-            DestRec.X = (int)pos.X;
-            DestRec.Y = (int)pos.Y;
+            pos += vel;
+
+            UpdateDestRec();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,12 +79,18 @@ namespace Seminarie_1
 
         void SetConstants()
         {
-            DestRec = new((int)pos.X, (int)pos.Y, (int)Radius * 2,(int)Radius*2);
+            DestRec = new((int)(pos.X- Radius), (int)(pos.Y-Radius), (int)Radius * 2,(int)Radius*2);
         }
 
         public void SetColor(Color newColor)
         {
             DrawColor = newColor;
+        }
+
+        public void UpdateDestRec()
+        {
+            DestRec.X = (int)(pos.X - Radius);
+            DestRec.Y = (int)(pos.Y - Radius);
         }
     }
 }
